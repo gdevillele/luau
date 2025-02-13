@@ -18,3 +18,5 @@
 __pycache__
 .cache
 .clangd
+/bazel-luau
+/bazel-out
