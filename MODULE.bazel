@@ -4,13 +4,22 @@ module(
     name = "luau",
 )
 
+# -------------------------------------------
+# README
+# -------------------------------------------
+# Build commands:
+# 
+# bazel build //:luau 
+# bazel build //:luau --platforms=//:android_arm64
+# bazel build //:luau --platforms=//:windows_x86_64
+# 
+
+
 bazel_dep(name = "platforms", version = "0.0.11")
-bazel_dep(name = "apple_support", version = "1.18.0")  # /!\ must be placed before rules_cc
-bazel_dep(name = "rules_apple", version = "3.18.0")
 bazel_dep(name = "rules_cc", version = "0.1.1")
 bazel_dep(name = "rules_android_ndk", version = "0.1.3")
 
-# Android NDK
+# Register Android NDK toolchains
 android_ndk_repository_extension = use_extension(
     "@rules_android_ndk//:extension.bzl",
     "android_ndk_repository_extension",

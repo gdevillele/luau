@@ -1,9 +1,4 @@
-# Build commands examples
-#
-# bazel build //:luau --platforms=//:android_arm64
-# bazel build //:luau --platforms=//:macos_universal
-# bazel build //:luau --platforms=//:ios_arm64
-#
+load("@rules_cc//cc:defs.bzl", "cc_library")
 
 # ------------------------------
 # Android
@@ -42,29 +37,6 @@ platform(
 )
 
 # ------------------------------
-# iOS
-# ------------------------------
-
-platform(
-    name = "ios_arm64",
-    constraint_values = [
-        "@platforms//os:ios",
-        "@platforms//cpu:arm64",
-    ],
-)
-
-# ------------------------------
-# macOS
-# ------------------------------
-
-platform(
-    name = "macos_universal",
-    constraint_values = [
-        "@platforms//os:macos",
-    ],
-)
-
-# ------------------------------
 # Windows
 # ------------------------------
 
@@ -75,27 +47,6 @@ platform(
         "@platforms//cpu:x86_64",
     ],
 )
-
-# ------------------------------
-# Linux
-# ------------------------------
-
-# TODO: implement me!
-
-# ------------------------------
-# Wasm
-# ------------------------------
-
-# TODO: implement me!
-
-
-
-
-load(
-    "@rules_apple//apple:apple.bzl",
-    "apple_static_library",
-)
-load("@rules_cc//cc:defs.bzl", "cc_library")
 
 # ----------------------------------------
 # Compiler-specific compiler flags
@@ -140,7 +91,6 @@ COPTS = COMPILER_COPTS + PLATFORM_COPTS
 alias(
     name = "luau",
     actual = select({
-        "@platforms//os:macos": ":luau-macos",
         "//conditions:default": ":luau-default",
     }),
 )
@@ -155,13 +105,6 @@ luau_static_library_deps = [
     ":Luau.EqSat",
     ":Luau.VM",
 ]
-
-apple_static_library(
-    name = "luau-macos",
-    minimum_os_version = "11.0",
-    platform_type = "macos",
-    deps = luau_static_library_deps,
-)
 
 cc_static_library(
     name = "luau-default",

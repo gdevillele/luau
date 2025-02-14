@@ -18,5 +18,7 @@
 __pycache__
 .cache
 .clangd
+/bazel-bin
 /bazel-luau
 /bazel-out
+/bazel-testlogs
