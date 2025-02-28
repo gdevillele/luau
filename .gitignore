@@ -18,3 +18,5 @@
 __pycache__
 .cache
 .clangd
+# Ignore bazel build files
+/bazel-luau
